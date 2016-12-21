@@ -35,7 +35,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView_pan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -55,7 +55,7 @@
             android:src="@drawable/play_button_icon" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imageView_bar"
             android:layout_width="50sp"
             android:layout_height="140sp"
             android:layout_gravity="right"
