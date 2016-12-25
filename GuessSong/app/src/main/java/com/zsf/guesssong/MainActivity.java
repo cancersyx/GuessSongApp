@@ -1,6 +1,5 @@
 package com.zsf.guesssong;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -8,8 +7,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     private Animation mPanAnim;
     private LinearInterpolator mPanPolator;
@@ -18,9 +18,9 @@ public class MainActivity extends Activity {
     private Animation mBarOutAnim;
     private LinearInterpolator mBarOutPolator;
 
-    private ImageButton mBtnPlay;
-    private ImageView mViewPan;
-    private ImageView mViewBar;
+    private ImageButton mBtnPlay;//播放按键
+    private ImageView mViewPan;//盘片的View
+    private ImageView mViewBar;//唱片指针的View
 
     private boolean mIsPlaying  = false;//默认初始值为false
     @Override
@@ -33,12 +33,18 @@ public class MainActivity extends Activity {
         initEvent();
     }
 
+    /**
+     * 初始化控件
+     */
     private void initView() {
         mBtnPlay = (ImageButton) findViewById(R.id.btn_play_start);
         mViewPan = (ImageView) findViewById(R.id.imageView_pan);
         mViewBar = (ImageView) findViewById(R.id.imageView_bar);
     }
 
+    /**
+     * 初始化动画
+     */
     private void initAnim() {
         mPanAnim = AnimationUtils.loadAnimation(this, R.anim.rotate);
         mPanPolator = new LinearInterpolator();
@@ -47,7 +53,7 @@ public class MainActivity extends Activity {
 
         mBarInAnim = AnimationUtils.loadAnimation(this, R.anim.rotate_45);
         mBarInPolator = new LinearInterpolator();
-        mBarInAnim.setFillAfter(true);
+//        mBarInAnim.setFillAfter(true);
         mBarInAnim.setInterpolator(mBarInPolator);
         barInAnimListener();
 
@@ -62,7 +68,8 @@ public class MainActivity extends Activity {
         mBtnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewBar.setAnimation(mBarInAnim);
+                handlePlayButton();
+                Toast.makeText(getBaseContext(),"点了播放按钮",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -143,6 +150,7 @@ public class MainActivity extends Activity {
         if (mViewBar != null){
             if (!mIsPlaying){
                 mIsPlaying = true;
+                //开始播杆进入动画
                 mViewBar.startAnimation(mBarInAnim);
                 mBtnPlay.setVisibility(View.INVISIBLE);
             }

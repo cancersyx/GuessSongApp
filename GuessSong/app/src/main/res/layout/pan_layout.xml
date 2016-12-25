@@ -9,9 +9,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <!--歌曲；文字标题-->
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
 
         <ImageView
             android:id="@+id/imageView"
@@ -34,12 +36,14 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content">
 
+
         <ImageView
             android:id="@+id/imageView_pan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/game_disc" />
+
 
         <ImageView
             android:layout_width="wrap_content"
@@ -52,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/play_button_icon" />
+            android:background="@drawable/play_button_icon" />
 
         <ImageView
             android:id="@+id/imageView_bar"
