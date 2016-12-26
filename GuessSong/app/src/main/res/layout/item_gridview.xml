@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--word_button_icon的background应该裁剪的小点-->
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_item"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/word_button_icon"
+    android:text="d"
+    android:textColor="@color/black"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp">
+
+</Button>

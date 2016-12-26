@@ -13,10 +13,11 @@
         android:orientation="vertical">
 
         <!--Top Bar-->
-        <include layout="@layout/top_bar"/>
-
-        <include layout="@layout/pan_layout"/>
-
+        <include layout="@layout/top_bar" />
+        <!--唱片-->
+        <include layout="@layout/pan_layout" />
+        <!--文字框-->
+        <include layout="@layout/name_select" />
     </LinearLayout>
 
 </FrameLayout>
