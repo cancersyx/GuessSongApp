@@ -19,7 +19,7 @@ public class Song {
         return mSongName.toCharArray();
     }
 
-    public String getmSongName() {
+    public String getSongName() {
         return mSongName;
     }
 
