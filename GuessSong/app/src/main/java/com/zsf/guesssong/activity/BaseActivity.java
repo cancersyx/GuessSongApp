@@ -1,4 +1,4 @@
-package com.zsf.guesssong;
+package com.zsf.guesssong.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
