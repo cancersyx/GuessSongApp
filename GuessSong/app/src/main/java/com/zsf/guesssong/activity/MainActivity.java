@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zsf.guesssong.R;
 import com.zsf.guesssong.data.Constant;
@@ -89,8 +88,8 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
         setContentView(R.layout.activity_main);
 
         initView();
-        initData();
         initAnim();
+        initData();
         initEvent();
 
     }
@@ -113,7 +112,13 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
      * 初始化数据
      */
     private void initData() {
+        //读取数据
+        int[] datas = Util.loadData(MainActivity.this);
+        mCurrentStageIndex = datas[Constant.INDEX_LOAD_DATA_STAGE];
+        mCurrentCoins = datas[Constant.INDEX_LOAD_DATA_COINS];
+
         initCurrentStageData();
+
         mViewCurrentCoins.setText(mCurrentCoins + "");
 
     }
@@ -146,8 +151,6 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
             @Override
             public void onClick(View v) {
                 handlePlayButton();
-                Toast.makeText(getBaseContext(),
-                        "点了播放按钮", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -251,6 +254,9 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
      */
     @Override
     protected void onPause() {
+        //保存游戏数据
+        Util.saveData(MainActivity.this,mCurrentStageIndex - 1,mCurrentCoins);
+
         mViewPan.clearAnimation();
 
         //停止播放音乐
@@ -787,11 +793,12 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
     private void showConfirmDialog(int id) {
         switch (id) {
             case ID_DIALOG_DELETE_WORD:
-                Util.showDialog(MainActivity.this, "确认花掉" + getDeleteWordCoins() + "个金币去掉一个错误答案", mBtnDeleteWordListener);
+                Util.showDialog(MainActivity.this, "确认花掉" + getDeleteWordCoins()
+                        + "个金币去掉一个错误答案", mBtnDeleteWordListener);
                 break;
             case ID_DIALOG_TIP_ANSWER:
-                Util.showDialog(MainActivity.this, "确认花掉" + getTipAnwserCoins() + "个金币获得文字提示？", mBtnOkTipAnswerListener);
-
+                Util.showDialog(MainActivity.this, "确认花掉" + getTipAnwserCoins()
+                        + "个金币获得文字提示？", mBtnOkTipAnswerListener);
                 break;
             case ID_DIALOG_LACK_COINS:
                 Util.showDialog(MainActivity.this, "金币不足，去商店补充吧！", mBtnOkLackCoinsListener);
