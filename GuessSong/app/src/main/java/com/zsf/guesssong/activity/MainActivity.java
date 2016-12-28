@@ -20,6 +20,7 @@ import com.zsf.guesssong.model.IWordButtonClickListener;
 import com.zsf.guesssong.model.Song;
 import com.zsf.guesssong.model.WordButton;
 import com.zsf.guesssong.util.MyLog;
+import com.zsf.guesssong.util.MyPlayer;
 import com.zsf.guesssong.util.Util;
 import com.zsf.guesssong.view.MyGridView;
 
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
         initData();
         initAnim();
         initEvent();
+
     }
 
     /**
@@ -113,6 +115,7 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
     private void initData() {
         initCurrentStageData();
         mViewCurrentCoins.setText(mCurrentCoins + "");
+
     }
 
 
@@ -153,6 +156,7 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
         handleDeleteEvent();
         //处理提示事件
         handleTipEvent();
+
     }
 
     /**
@@ -233,8 +237,12 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
                 //开始播杆进入动画
                 mViewBar.startAnimation(mBarInAnim);
                 mBtnPlay.setVisibility(View.INVISIBLE);
+
+                //开始播放音乐
+                MyPlayer.playSong(MainActivity.this,mCurrentSong.getSongFileName());
             }
         }
+
 
     }
 
@@ -244,6 +252,9 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
     @Override
     protected void onPause() {
         mViewPan.clearAnimation();
+
+        //停止播放音乐
+        MyPlayer.stopSong(MainActivity.this);
         super.onPause();
     }
 
@@ -283,6 +294,9 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
         mAllWords = initAllWord();
         //更新数据-MyGridView
         mMyGridView.updateData(mAllWords);
+
+        //进入就播放音乐
+       handlePlayButton();
 
     }
 
@@ -528,7 +542,13 @@ public class MainActivity extends BaseActivity implements IWordButtonClickListen
         mPassView = this.findViewById(R.id.pass_view);
         mPassView.setVisibility(View.VISIBLE);
         //停止未完成的动画
+        mViewPan.clearAnimation();
 
+        //停止正在播放的音乐
+        MyPlayer.stopSong(MainActivity.this);
+
+        //播放音效
+        MyPlayer.playTone(MainActivity.this,MyPlayer.INDEX_TONE_COIN);
 
         //当前关的索引
         mCurrentStagePassView = (TextView) findViewById(R.id.text_current_stage_pass);
